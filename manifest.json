@@ -1,0 +1,113 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/mcpb/main/dist/mcpb-manifest.schema.json",
+  "manifest_version": "0.3",
+  "name": "resume-builder",
+  "display_name": "Resume Builder",
+  "version": "1.2.2",
+  "description": "Build a polished, ATS-friendly resume from your LinkedIn profile PDF and your GitHub account.",
+  "long_description": "Resume Builder lets Claude turn your LinkedIn profile and GitHub activity into a tailored resume, saved on your computer as an editable Word file (or PDF/HTML).\n\n**How it works**\n1. On LinkedIn, open your profile, click **More → Save to PDF**, and attach the PDF in Claude (or give Claude its file path).\n2. Claude saves your profile locally so you only do this once.\n3. Claude pulls your GitHub repositories, languages and open-source contributions, using a GitHub connector if you have one enabled, or the extension's built-in lookup (just your username; no token needed).\n4. Claude writes the resume, tailored to a role or job posting if you give one, and renders it with the elegant Signature template or one of three other ATS-safe templates.\n\nEverything runs on your computer. The only network calls go to the GitHub API.",
+  "author": {
+    "name": "Joelle Mahfoud",
+    "url": "https://www.linkedin.com/in/joelle-a-mahfoud-1822331b2"
+  },
+  "icon": "icon.png",
+  "keywords": [
+    "resume",
+    "cv",
+    "linkedin",
+    "github",
+    "career",
+    "job search"
+  ],
+  "license": "MIT",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/index.js"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "${user_config.github_token}",
+        "GITHUB_USERNAME": "${user_config.github_username}",
+        "OUTPUT_DIR": "${user_config.output_dir}",
+        "FONT_FILE": "${user_config.font_file}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "read_linkedin_pdf",
+      "description": "Extract text from a LinkedIn 'Save to PDF' profile export on your computer"
+    },
+    {
+      "name": "save_profile",
+      "description": "Save your base profile locally so it can be reused for future resumes"
+    },
+    {
+      "name": "get_saved_profile",
+      "description": "Load your saved base profile"
+    },
+    {
+      "name": "get_github_profile",
+      "description": "Fetch public repositories, languages and open-source contributions from GitHub (no token needed); used when no GitHub connector is enabled"
+    },
+    {
+      "name": "list_templates",
+      "description": "List the available resume templates"
+    },
+    {
+      "name": "render_resume",
+      "description": "Save a resume as Word (.docx), PDF and/or HTML in your resumes folder"
+    }
+  ],
+  "prompts": [
+    {
+      "name": "build-resume",
+      "description": "Build a resume from your LinkedIn PDF and GitHub, optionally tailored to a role",
+      "arguments": [
+        "target_role",
+        "job_description"
+      ],
+      "text": "Build my resume using the Resume Builder tools: check for a saved profile first, then pull my GitHub profile, write the resume, and render it. Target role: ${arguments.target_role}. Job description: ${arguments.job_description}. Keep it to one page if my experience allows, two at most. Don't invent anything."
+    }
+  ],
+  "user_config": {
+    "github_username": {
+      "type": "string",
+      "title": "GitHub username",
+      "description": "Your GitHub username. This is all that's needed: public repositories, languages and open-source contributions are read without a token. You can skip it if you use a GitHub connector in Claude.",
+      "required": false
+    },
+    "github_token": {
+      "type": "string",
+      "title": "GitHub token (optional extras)",
+      "description": "Optional. A read-only fine-grained personal access token adds pinned repos, last-year contribution stats, a higher rate limit and (only if you ask) private repos. Not needed for a normal resume.",
+      "sensitive": true,
+      "required": false
+    },
+    "output_dir": {
+      "type": "directory",
+      "title": "Resumes folder",
+      "description": "Where resumes and your saved profile are stored.",
+      "default": "${DOCUMENTS}/Resumes",
+      "required": false
+    },
+    "font_file": {
+      "type": "file",
+      "title": "Custom font (optional)",
+      "description": "A .ttf or .otf font for PDFs. Only needed if your resume uses characters outside Western European languages (e.g. Arabic, Chinese, Cyrillic names).",
+      "required": false
+    }
+  },
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32"
+    ],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  }
+}

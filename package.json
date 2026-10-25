@@ -1,0 +1,30 @@
+{
+  "name": "resume-builder",
+  "version": "1.2.2",
+  "description": "Claude Desktop extension that builds resumes from LinkedIn PDFs and GitHub",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "inspect": "npx @modelcontextprotocol/inspector node server/index.js",
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/smoke-test.mjs",
+    "validate": "mcpb validate manifest.json"
+  },
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "docx": "^9.14.0",
+    "fontkit": "^2.0.4",
+    "pdfkit": "^0.20.2",
+    "unpdf": "^1.9.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@anthropic-ai/mcpb": "^2.1.2"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=18.17"
+  }
+}
