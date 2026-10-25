@@ -2,9 +2,18 @@
 
 A Claude Desktop extension (MCPB) that builds a polished, ATS-friendly resume from your **LinkedIn profile PDF** and your **GitHub account**. Claude writes and tailors the content; the extension supplies your data and saves the result on your computer as an editable **Word (.docx)** file, or as PDF or HTML.
 
+<p align="center">
+  <img src="docs/screenshots/signature-template.png" alt="Sample resume generated with the Signature template: serif name and section headings, contact line between two rules, job titles with right-aligned dates, bulleted achievements" width="640">
+</p>
+<p align="center"><em>A sample resume in the default Signature template, for a fictional person. The Word, PDF and HTML outputs share this layout.</em></p>
+
+Three more templates are included:
+
+![Classic, Modern and Compact templates side by side](docs/screenshots/other-templates.png)
+
 ## Install
 
-1. Download `resume-builder.mcpb`.
+1. Download the latest `resume-builder-<version>.mcpb` from the [Releases page](../../releases/latest) (or [build it yourself](#build-from-source)).
 2. Double-click it (or drag it into Claude Desktop → Settings → Extensions) and click **Install**.
 3. Optional settings:
    - **GitHub username**: all that's needed for GitHub data. Public repositories, languages and merged PRs to other projects are read without any token.
@@ -88,7 +97,7 @@ You can build the installable `.mcpb` file yourself from this repository.
 ### Steps
 
 ```bash
-git clone https://github.com/joellemd/resume-builder.git
+git clone https://github.com/<your-username>/resume-builder.git
 cd resume-builder
 npm ci            # install exact dependency versions from package-lock.json
 npm test          # optional: quick check that everything works
@@ -126,7 +135,8 @@ server/store.js        Saved profile (profile.json in the resumes folder)
 server/schema.js       Resume data model (a subset of JSON Resume)
 server/render/         Templates and the Word, PDF and HTML renderers
 fonts/                 Bundled fonts (SIL Open Font License) and their licenses
-scripts/               Build and smoke-test scripts
+scripts/               Build and smoke-test scripts, plus the fictional sample resume
+docs/screenshots/      README images, rendered from scripts/sample-resume.json
 ```
 
 When the extension runs, it reads these environment variables, which Claude Desktop sets from the extension settings: `GITHUB_USERNAME`, `GITHUB_TOKEN`, `OUTPUT_DIR`, `FONT_FILE`. To try the server outside Claude Desktop, set them yourself, e.g. `OUTPUT_DIR=./out npm start`.

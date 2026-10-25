@@ -1,0 +1,56 @@
+{
+  "basics": {
+    "name": "Alex Morgan",
+    "label": "Senior Software Engineer",
+    "phone": "+1 555 0142",
+    "email": "alex.morgan@example.com",
+    "location": "Lisbon, Portugal",
+    "summary": "Senior Software Engineer with 8 years of experience building web, mobile and backend products. Leads API and integration work end to end, from design through launch, and mentors engineers across teams. Works daily in TypeScript, Node.js, React and PostgreSQL on AWS, with a growing focus on AI features and developer tooling. Active open-source contributor.",
+    "profiles": [
+      { "network": "LinkedIn", "url": "https://linkedin.com/in/alex-morgan-example" },
+      { "network": "GitHub", "url": "https://github.com/alexmorgan-example" }
+    ]
+  },
+  "work": [
+    {
+      "name": "Northwind Labs", "position": "Senior Software Engineer", "location": "Remote", "startDate": "2022-03",
+      "highlights": [
+        "Lead a team of 5 building the payments and invoicing platform used by 4,000+ businesses, built on Node.js, React and PostgreSQL.",
+        "Designed an event-driven integration layer connecting 12 accounting and ERP systems, cutting partner onboarding from weeks to days.",
+        "Introduced contract testing and staged rollouts, reducing production incidents by 40% year over year."
+      ]
+    },
+    {
+      "name": "Brightline", "position": "Software Engineer", "location": "Porto, Portugal", "startDate": "2019-06", "endDate": "2022-02",
+      "highlights": [
+        "Built the React Native app for a 200k-user booking platform, from first release to a 4.8-star App Store rating.",
+        "Moved core services from a monolith to containerized services on AWS, halving deployment time."
+      ]
+    },
+    {
+      "name": "Freelance", "position": "Full Stack Developer", "location": "Self-employed", "startDate": "2017-01", "endDate": "2019-05",
+      "highlights": ["Delivered web and mobile apps for small businesses, including point-of-sale and inventory systems."]
+    }
+  ],
+  "volunteer": [
+    { "organization": "Code Club Lisbon", "position": "Mentor", "location": "Lisbon, Portugal", "startDate": "2023-01",
+      "summary": "Mentor teenagers learning to build their first web apps in weekly sessions." }
+  ],
+  "projects": [
+    { "name": "Lumen UI", "type": "open source", "keywords": ["TypeScript", "React"],
+      "description": "added keyboard navigation and screen-reader support to the date picker component." },
+    { "name": "pgsync-lite", "type": "open source", "keywords": ["Go"],
+      "description": "fixed a replication edge case that dropped updates during schema migrations." }
+  ],
+  "education": [
+    { "institution": "University of Porto", "location": "Portugal", "studyType": "Master of Science", "area": "Software Engineering", "endDate": "2019" },
+    { "institution": "University of Porto", "location": "Portugal", "studyType": "Bachelor of Science", "area": "Computer Science", "endDate": "2017" }
+  ],
+  "awards": [{ "title": "Dean's List" }],
+  "skills": [
+    { "name": "Languages", "keywords": ["TypeScript", "JavaScript", "Go", "Python", "SQL"] },
+    { "name": "Frontend & Mobile", "keywords": ["React", "React Native", "Next.js"] },
+    { "name": "Backend & Data", "keywords": ["Node.js", "NestJS", "PostgreSQL", "Redis", "Kafka"] },
+    { "name": "Cloud & DevOps", "keywords": ["AWS", "Docker", "Terraform", "GitHub Actions"] }
+  ]
+}

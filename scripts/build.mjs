@@ -35,6 +35,10 @@ if (manifest.version !== pkg.version) {
   process.exit(1);
 }
 
+// Call the MCPB CLI by its full package name. A bare `npx mcpb` only works when devDependencies
+// are installed; otherwise npm looks for a package called "mcpb", which doesn't exist (E404).
+const MCPB = ["--yes", "--package", `@anthropic-ai/mcpb@${pkg.devDependencies?.["@anthropic-ai/mcpb"] ?? "latest"}`, "mcpb"];
+
 for (const item of INCLUDE) {
   if (!fs.existsSync(path.join(root, item))) {
     console.error(`Missing ${item}. Run the build from a complete checkout of the repository.`);
@@ -42,8 +46,8 @@ for (const item of INCLUDE) {
   }
 }
 
-// 1. Validate the manifest (needs devDependencies: run `npm ci` first).
-run(npx, ["mcpb", "validate", "manifest.json"], root);
+// 1. Validate the manifest.
+run(npx, [...MCPB, "validate", "manifest.json"], root);
 
 // 2. Stage a clean copy with production dependencies only.
 fs.rmSync(stage, { recursive: true, force: true });
@@ -54,7 +58,7 @@ run(npm, ["ci", "--omit=dev", "--no-audit", "--no-fund"], stage);
 // 3. Pack.
 const out = path.join(dist, `${manifest.name}-${manifest.version}.mcpb`);
 fs.rmSync(out, { force: true });
-run(npx, ["mcpb", "pack", stage, out], root);
+run(npx, [...MCPB, "pack", stage, out], root);
 
 fs.rmSync(stage, { recursive: true, force: true });
 console.log(`\nBuilt ${path.relative(root, out)} — double-click it to install in Claude Desktop.`);
